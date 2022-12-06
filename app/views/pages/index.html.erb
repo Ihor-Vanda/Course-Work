@@ -1,0 +1,7 @@
+<h1 class="fs-5">Параметри генератора розподілу Пуассона</h1><p></p>
+<%= form_with url: simulation_path, method: "get", :class => 'form-group' do |f| %>
+  <%= f.number_field :lambda, :class =>"form-control", required: true, in: 0.0..Float::MAX, step: 0.01, placeholder: "λ" %> <br>
+  <%= f.number_field :k, :class =>"form-control", required: true, in: 0..21, step: 1,  placeholder: "k" %> <br>
+  <%= f.number_field :count, :class =>"form-control", required: true, in: 1..1000000, step: 1,  placeholder: "N" %> <br>
+  <%= f.submit "Симуляція", :class => "btn btn-success"  %>
+<% end %>

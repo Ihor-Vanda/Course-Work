@@ -1,0 +1,133 @@
+
+
+<!--chartkick-->
+<%#= line_chart @data, empty: "No data" %>
+<h1>Метод інтервалів</h1>
+<%= line_chart [
+                 {name: "Теоретичні значення", data: @pmf_distribution},
+                 {name: "Практичні значення", data: @interval_method_hash}
+               ], label: 'PMF', xtitle: 'k', ytitle: 'P(x = k)', height: "500px" %>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">λ</th>
+      <th scope="col">k</th>
+      <th scope="col">PMF</th>
+      <th scope="col">Отримані значення</th>
+      <th scope="col">Похибка</th>
+    </tr>
+  </thead>
+  <% (0..@k).each do |i| %>
+    <tr>
+      <td><%= @lambda %></td>
+      <td><%= i %></td>
+      <td><%= "%0.7f" % @pmf_distribution[i] %></td>
+      <td><%= "%0.7f" % @interval_method_hash[i] %></td>
+      <td><%= "%0.7f" % (@pmf_distribution[i] - @interval_method_hash[i]).abs %></td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<p class="fs-5">
+  Теоретичне математичне очікування: <%= "%0.5f" % @theory['expected_value'] %> <br>
+  Практичне математичне очікування: <%= "%0.5f" % @interval_method['expected_value'] %> <br>
+</p>
+<p class="fs-5">
+  Теоретичне значення моди: <%= "%0.5f" % @theory['mode'] %> <br>
+  Практична значення моди: <%= "%0.5f" % @interval_method['mode'] %> <br>
+</p>
+<p class="fs-5">
+  Теоретичне значення дисперсії: <%= "%0.5f" % @theory['dispersion'] %> <br>
+  Практичне значення дисперсії: <%= "%0.5f" % @interval_method['dispersion'] %> <br>
+</p>
+<br>
+<h1>Метод Неймана</h1>
+<%= line_chart [
+                 {name: "Теоретичні значення", data: @pmf_distribution},
+                 {name: "Практичні значення", data: @neiman_method_hash}
+               ], label: 'PMF', xtitle: 'k', ytitle: 'P(x = k)', height: "500px" %>
+<br>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">λ</th>
+    <th scope="col">k</th>
+    <th scope="col">PMF</th>
+    <th scope="col">Отримані значення</th>
+    <th scope="col">Похибка</th>
+  </tr>
+  </thead>
+  <% (0..@k).each do |i| %>
+    <tr>
+      <td><%= @lambda %></td>
+      <td><%= i %></td>
+      <td><%= "%0.7f" % @pmf_distribution[i] %></td>
+      <td><%= "%0.7f" % @neiman_method_hash[i] %></td>
+      <td><%= "%0.7f" % (@pmf_distribution[i] - @neiman_method_hash[i]).abs %></td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<p class="fs-5">
+  Теоретичне математичне очікування: <%= "%0.5f" % @theory['expected_value'] %> <br>
+  Практичне математичне очікування: <%= "%0.5f" % @neiman_method['expected_value'] %> <br>
+</p>
+<p class="fs-5">
+  Теоретичне значення моди: <%= "%0.5f" % @theory['mode'] %> <br>
+  Практична значення моди: <%= "%0.5f" % @neiman_method['mode'] %> <br>
+</p>
+<p class="fs-5">
+  Теоретичне значення дисперсії: <%= "%0.5f" % @theory['dispersion'] %> <br>
+  Практичне значення дисперсії: <%= "%0.5f" % @neiman_method['dispersion'] %> <br>
+</p>
+<br>
+<h1>Алгоритм Метрополіса</h1>
+<%= line_chart [
+                 {name: "Теоретичні значення", data: @pmf_distribution},
+                 {name: "Практичні значення", data: @metropolis_method_hash}
+               ], label: 'PMF', xtitle: 'k', ytitle: 'P(x = k)', height: "500px" %>
+<br>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">λ</th>
+    <th scope="col">k</th>
+    <th scope="col">PMF</th>
+    <th scope="col">Отримані значення</th>
+    <th scope="col">Похибка</th>
+  </tr>
+  </thead>
+  <% (0..@k).each do |i| %>
+    <tr>
+      <td><%= @lambda %></td>
+      <td><%= i %></td>
+      <td><%= "%0.7f" % @pmf_distribution[i] %></td>
+      <td><%= "%0.7f" % @metropolis_method_hash[i] %></td>
+      <td><%= "%0.7f" % (@pmf_distribution[i] - @metropolis_method_hash[i]).abs %></td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<p class="fs-5">
+  Теоретичне математичне очікування: <%= "%0.5f" % @theory['expected_value'] %> <br>
+  Практичне математичне очікування: <%= "%0.5f" % @metropolis_method['expected_value'] %> <br>
+</p>
+<p class="fs-5">
+  Теоретичне значення моди: <%= "%0.5f" % @theory['mode'] %> <br>
+  Практична значення моди: <%= "%0.5f" % @metropolis_method['mode'] %> <br>
+</p>
+<p class="fs-5">
+  Теоретичне значення дисперсії: <%= "%0.5f" % @theory['dispersion'] %> <br>
+  Практичне значення дисперсії: <%= "%0.5f" % @metropolis_method['dispersion'] %> <br>
+</p>
+<br>
+<h1>Гістограма для методів розподілу</h1>
+<%= column_chart [
+                    { name: 'Теоретичні значення', data: @pmf_distribution },
+                    { name: 'Метод інтервалів', data: @interval_method_hash },
+                    {name: "Метод Неймана", data: @neiman_method_hash },
+                    {name: "Алгоритм Метрополіса", data: @metropolis_method_hash }
+], height:"500px", xtitle: 'k', ytitle: 'Pi / Pn'%>
+<br>
+<span class="py-2 text-dark text-decoration-none"><%= link_to "Завантажити дані", download_path %></span>
