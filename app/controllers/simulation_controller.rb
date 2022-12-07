@@ -41,7 +41,7 @@ class SimulationController < ApplicationController
       "n" => @count
     }
 
-    metropolis_method = NeimanMethod.new
+    metropolis_method = MetropolisMethod.new
     @metropolis_method_hash = metropolis_method.generate(@lambda, @k, @count)
     e_v = get_expected_value(@metropolis_method_hash)
     @metropolis_method = {
