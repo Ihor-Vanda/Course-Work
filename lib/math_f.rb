@@ -16,14 +16,16 @@ module MathF
     end
     hash
   end
+
   def random_discrete(k, gamma)
     prob = 1.0 / (k + 1)
     value = 0
-    (1..k).each do |i|
+    (1..k + 1).each do |i|
       return value if gamma < (prob * i)
 
       value += 1
     end
+    value -= 1 if value > k
     value
   end
 
